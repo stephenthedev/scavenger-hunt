@@ -26,7 +26,7 @@
 9. Create PR
 	1. Go to your repo on github
 	2. Click the `New Pull Request` button
-	3. Choose `base fork: raghunat/hostpot base: master`
+	3. Choose `base fork: raghunat/scavenger-hunt base: master`
 	4. Choose `head fork: <last-name> compare: <last-name>-bootstrap`
 	5. Click `Create Pull Request` Green Button
 	6. Enter in a PR Title, and Description
