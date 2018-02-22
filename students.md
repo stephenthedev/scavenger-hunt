@@ -35,7 +35,7 @@
 
 ## Getting Updates from raghunat/master
 1. Open a terminal and `cd` into your forks local folder
-2. Run `git remote add upstream https://github.com/raghunat/hotspot.git` (only needed once per computer)
+2. Run `git remote add upstream https://github.com/raghunat/scavenger-hunt.git` (only needed once per computer)
 3. Run `git fetch upstream`
 4. Run `git pull upstream master`
 
