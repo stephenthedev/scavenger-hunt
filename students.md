@@ -1,4 +1,4 @@
-# Github Hotspot Actuibs
+# Github Scavenger Hunt Actions
 
 ## Prerequisites
 1. Make an account at [github.com](https://github.com)
