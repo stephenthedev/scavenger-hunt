@@ -2,7 +2,7 @@
 
 ## Prerequisites
 1. Make an account at [github.com](https://github.com)
-2. Fork the main repo: [https://github.com/raghunat/scavenger-hunt](https://github.com/raghunat/scavenger-hunt)
+2. Fork the main repo: [https://github.com/raghunat/scavenger-hunt](https://github.com/raghunat/scavenger-hunt) (Button is in the top right, says "Fork" with some number next to it)
 3. Clone your repo
 	1. go to **your repo** on **your github** account
 	2. Click the clone button
