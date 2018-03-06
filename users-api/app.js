@@ -18,4 +18,4 @@ app.use('/signup', require('./routes/signup.js'));
 
 
 // listen on port 3000
-app.listen(3000, () => console.log("App is listening..."));
+app.listen(3000, () => console.log('App is listening...'));
