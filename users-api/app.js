@@ -12,8 +12,6 @@ app.use(bodyParser.json());
 
 const loginRoutes = require('./routes/login.js');
 app.use('/login', loginRoutes);
-app.use('/test', loginRoutes);
-
 
 app.use('/version', require('./routes/version.js'));
 
