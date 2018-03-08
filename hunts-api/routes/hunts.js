@@ -3,11 +3,11 @@
 const express = require('express');
 const router = express.Router();
 
-const app = express();
 
-router.post('/examplepost', (req,res) => {
-  res.send('You have begun your hunt!');
-});
-
+router.post('/', (req,res) => {
+    res.json({
+        name: 'Hunt 1'
+      });
+    });
 
 module.exports = router;
