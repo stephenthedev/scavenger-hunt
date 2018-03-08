@@ -13,6 +13,10 @@ app.use(bodyParser.json());
 // Add require routers
 const usersRoutes = require('./routes/users.js');
 app.use('/routes/users', usersRoutes);
+
+const loginRoutes = require('./routes/login.js');
+app.use('/login', loginRoutes);
+
 app.use('/version', require('./routes/version.js'));
 app.use('/signup', require('./routes/signup.js'));
 
