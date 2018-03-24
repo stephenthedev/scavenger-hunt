@@ -4,7 +4,7 @@ const express = require('express');
 
 const router = express.Router();
 
-router.post('/complete/item', (req,res) => {
+router.post('/', (req,res) => {
     if((req.body.id == 'abcd-efgh-ijkl-mnop') && (req.body.image == 'base64String')){
       res.status(200).send('SUCCESS');
     }
