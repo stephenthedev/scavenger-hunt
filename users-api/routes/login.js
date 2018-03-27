@@ -4,12 +4,19 @@ const express = require('express');
 
 const router = express.Router();
 
-router.post('/', (req,res) => {
-  if (req.body.password == 'testpass'){
-    res.send('Logged In !');
+router.put('/', (req,res) => {
+  if (req.body.password == '1234'){
+    res.status(200).send
+    ({
+        "id":"abcd-efgh-ijkl-mnop",
+        "email":"test@test.com"
+    });
   }
   else{
-    res.status(403).send('Wrong Pass !');
+    res.status(403).send
+    ({
+        "message": "Invalid Credentials"
+    });
   }
 });
 
