@@ -8,6 +8,51 @@ router.post('/', (req,res) => {
     res.json({
         name: 'Hunt 1'
     });
-  });
+});
 
+router.post('/hunts', (req, res) => {
+    // test if hunt request is missing any information
+    // requires name, lat, long, radius and items
+    obj = req.body;
+    missing = [];
+
+    // Check for and filter out any keys with false values
+    // Record those keys with missing or invalid values for later use
+    if(!parseFloat(obj.lat) && obj.lat != 0)
+      missing.push("lat");
+    // lat and long must be positive or negative floats
+    if(!parseFloat(obj.long) && obj.long != 0)
+      missing.push("long");
+    // items array must a non-empty array
+    if(Array.isArray(obj.items) && obj.items.length < 1)
+      missing.push("items");
+    // radius must be a float that is greater than 0
+    if(!parseFloat(obj.radius) || obj.radius < 0)
+      missing.push("radius");
+    // name must be a non-empty string
+    if(typeof obj.name !== "string" || obj.name.length < 1)
+      missing.push("name");
+
+    // If any key-value is missing or invalid send a 401 status and
+    // message object that tells the caller what is Missing
+    // Otherwise send a 200 status with JSON object
+    if(missing.length > 0) {
+      res.status(401).send({"message": "Missing " + missing.toString(" ")});
+    } else {
+      res.status(200).json({
+          "id":"abcd-efgh-ijkl-mnop",
+          "name": "Some Hunt",
+          "lat": 42.12323,
+          "long": -79.33171,
+          "radius": 1,
+          "items": [
+            {
+              "label": "Foutain",
+              "lat": 42.12323,
+              "long": -79.33171
+            }
+          ]
+        });
+    }
+});
 module.exports = router;
