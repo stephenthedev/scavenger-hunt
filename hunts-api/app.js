@@ -8,6 +8,9 @@ app.use(bodyParser.json());
 
 // TODO Add require routers here
 // app.use('/somepath', require(./routes/somepath.js));
+
+// alive routers
+
 app.use('/alive', require('./routes/alive'));
 
 app.use('/version', require('./routes/version.js'));
