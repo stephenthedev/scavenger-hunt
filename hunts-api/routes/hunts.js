@@ -21,7 +21,7 @@ router.get('/list', (req, res) => {
 
 router.put('/:id', (req, res) => {
   if(!req.body.email || !req.params.id){
-    res.status(403).send('Invalid information.');
+    res.status(403).json({message: "Invalid information."});
   }
   process.stdout.write("Connecting to Mongo ...\n");
   getDb().then(db => {
@@ -38,7 +38,7 @@ router.put('/:id', (req, res) => {
         throw err;
       }
       process.stdout.write("200: added " + req.body.email + " to 'hunts' id:" + req.params.id + "\n");
-      res.status(200);
+      res.status(200).json({message: "Added user to hunt"});
     });
 
   }).catch(e => res.status(500).json(e));
