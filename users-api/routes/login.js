@@ -12,10 +12,10 @@ router.post('/', (req,res) => {
         }
         if (user && user.password === req.body.password){
           console.log('Login successful.')
-          res.json({Status: "Login successful."});
+          res.json({status: "Login successful."});
         } else {
           console.log("Invalid credentials.");
-          res.json({Status: "Invalid credentials."});
+          res.json({status: "Invalid credentials."});
         }
       });
     });
