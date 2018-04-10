@@ -8,7 +8,7 @@ router.post('/', (req,res) => {
       {username: req.body.username}, (err, user) => {
         if(err) {
           console.log('ERROR.')
-          res.json(err)
+          return res.status(500).json(err)
         }
         if (user && user.password === req.body.password){
           console.log('Login successful.')
