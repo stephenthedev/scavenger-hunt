@@ -36,7 +36,7 @@ router.post('/', (req,res) => {
 server.get('/:id', (req,res) =>{
   var hunt = db.collection('hunts')
   .findOne({
-    _id: req.params.id
+    "_id": ObjectId(req.params.id)
   });
   res.json(hunt);
 });
