@@ -18,6 +18,7 @@ router.get('/', (req,res) => {
   });
   }).catch(e => res.status(500).json(e));
 });
+
   router.post('/join', (req, res) => {
   if (req.body.id != 'abcd-efgh-ijkl') {
     res.status(404).json({
