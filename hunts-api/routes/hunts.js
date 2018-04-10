@@ -2,15 +2,22 @@
 
 const express = require('express');
 const router = express.Router();
+const getDb = require('../db');
 
 
-
-router.post('/', (req,res) => {
-    res.json({
-        name: 'Hunt 1'
-    });
+router.get('/', (req,res) => {
+    getDb().then(db => {
+  db.collection('hunts')
+  .find({})
+  .toArray((err, results) =>{
+    if(err){
+      res.status(500).json(err);
+    }else{
+      res.json(results);
+    }
   });
-
+  }).catch(e => res.status(500).json(e));
+});
   router.post('/join', (req, res) => {
   if (req.body.id != 'abcd-efgh-ijkl') {
     res.status(404).json({
