@@ -14,7 +14,7 @@ router.post('/hunts', (req, res) => {
     // test if hunt request is missing any information
     // requires name, lat, long, radius and items
     const body = req.body;
-    missing = [];
+    const missing = [];
 
     // Check for and filter out any keys with false values
     // Record those keys with missing or invalid values for later use
@@ -24,7 +24,7 @@ router.post('/hunts', (req, res) => {
     if(!parseFloat(body.long))
       missing.push("long");
     // items array must a non-empty array
-    if(Array.isArray(body.items) || body.items.length < 1)
+    if(!Array.isArray(body.items) || body.items.length < 1)
       missing.push("items");
     // radius must be a float that is greater than 0
     if(!parseFloat(body.radius) || body.radius < 0)
