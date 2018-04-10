@@ -6,14 +6,14 @@ const getDb = require('../db/index.js');
 
 // TODO: remove when deployed to production, this is for debugging only !!
 router.get('/list', (req, res) => {
-  process.stdout.write("Connecting to Mongo ...\n");
+  console.log("Connecting to Mongo ...");
   getDb().then(db => {
-    process.stdout.write("Connected\n");
+    console.log("Connected");
     db.collection('hunts').find(req.params.id).toArray((err, docs) => {
   		if(err){
-  			throw err;
+  			return res.status(500).json(err)
   		}
-      process.stdout.write("200: returning 'hunts' collection to /list\n");
+      console.log("200: returning 'hunts' collection to /list");
       res.status(200).json(docs);
   	});
   }).catch(e => res.status(500).json(e));
@@ -21,23 +21,24 @@ router.get('/list', (req, res) => {
 
 router.put('/:id', (req, res) => {
   if(!req.body.email || !req.params.id){
-    res.status(403).json({message: "Invalid information."});
+    return res.status(403).json({message: "Invalid information."});
+
   }
-  process.stdout.write("Connecting to Mongo ...\n");
+  console.log("Connecting to Mongo ...");
   getDb().then(db => {
-    process.stdout.write("Connected to Mongo\n");
+    console.log("Connected to Mongo");
     db.collection('hunts')
     .findOneAndUpdate({id: req.params.id},{
       $push: {
-        email: req.body.email
+        currentUsers: req.body.email
       }
     }, {
       upsert: true
     }, (err, result) => {
       if(err){
-        throw err;
+        return res.status(500).json(err)
       }
-      process.stdout.write("200: added " + req.body.email + " to 'hunts' id:" + req.params.id + "\n");
+      console.log("200: added " + req.body.email + " to 'hunts' id:" + req.params.id);
       res.status(200).json({message: "Added user to hunt"});
     });
 
