@@ -9,7 +9,8 @@ router.get('/', (req, res) => {
     // http://mongodb.github.io/node-mongodb-native/3.0/quick-start/quick-start/#insert-a-document
 
     res.json({
-      message: 'Api is alive and mongo connection is good.'
+      message: 'Api is alive and mongo connection is good.',
+      time: new Date()
     })
   }).catch(e => res.status(500).json(e));
 });
