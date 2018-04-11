@@ -2,12 +2,24 @@
 
 const express = require('express');
 const router = express.Router();
+const getDb = require('../db');
 
 
 router.post('/', (req,res) => {
-    res.json({
-        name: 'Hunt 1'
-    });
+  getDb().then(db => {
+
+    // db is available here just like in:
+    // http://mongodb.github.io/node-mongodb-native/3.0/quick-start/quick-start/#insert-a-document
+    const collection = db.collection('hunts');
+      // Insert some documents
+      collection.insertMany([
+        req.body
+      ], function(err, result) {
+      if (err) return res.status(500).json(err);
+
+      res.json(result);
+      });
+  }).catch(e => res.status(500).json(e));
   });
 
   router.post('/join', (req, res) => {
