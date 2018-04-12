@@ -8,8 +8,8 @@
 const express = require('express');
 const router = express.Router();
 
-//require mongo
-const getDb = require('./mongo');
+//require db
+const getDb = require('../db');
 
 // a test route
 router.get('/testRoute', (req,res) => res.send('Test successful.'));
@@ -25,7 +25,7 @@ router.post('/', (req, res) => {
   }
   else
   {
-    getDb(db, => {
+    getDb().then(db => {
       db.collection('users')
       .insert({
         user: req.body.username,
@@ -33,13 +33,13 @@ router.post('/', (req, res) => {
       }, (err, result) => {
         if (err) {
           return res.status(500).json(err);
+        } else {
+          res.send('Account Confirmed. \n' +
+          'Username: ' + req.body.username + '\n' +
+          'Password: ' + req.body.password);
         }
       })
     })
-    // Add the user to the db
-    res.send('Account Confirmed. \n' +
-    'Username: ' + req.body.username + '\n' +
-    'Password: ' + req.body.password);
   }
 });
 
