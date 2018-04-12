@@ -14,17 +14,40 @@ router.get('/testRoute', (req,res) => res.send('Test successful.'));
 // if something was entered for username and password,
 // confirm the signup and display the information
 router.post('/', (req, res) => {
+  if(req.body.username)
+  {
   if((!req.body.username) || (!req.body.password))
-  {
-    res.status(403).send('Invalid information.');
-  }
+    {
+   res.status(403).send('Invalid information.');
+    }
   else
-  {
+    {
+
     res.send('Account Confirmed. \n' +
     'Username: ' + req.body.username + '\n' +
     'Password: ' + req.body.password);
+    }
+  }
+  //email
+  //S2 Enhanced signup route #28
+    if (
+      !req.body.password ||
+      !req.body.email ||
+      req.body.password.length < 6 ||
+      req.body.email.match(/^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/) == false ||
+      req.body.password.match(/[a-z0-9]+/i) == false
+    ) {
+      res.status(401).json({message: "Invalid Credentials"})
+    } else {
+      res.json({id: "abcd-efgh-ijkl-mnop", "email": req.body.email});
+    }
+    //------------------------------------------------------------
+  else
+  {
+     res.status(403).send('Invalid information.');
   }
 });
+
 
 //export so other modules can access
 module.exports = router;
