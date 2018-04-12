@@ -22,34 +22,26 @@ router.post('/', (req, res) => {
     }
   else
     {
-   
+
     res.send('Account Confirmed. \n' +
     'Username: ' + req.body.username + '\n' +
     'Password: ' + req.body.password);
     }
   }
-  //email 
-if (req.body.email) 
-  {
-    var password=req.body.password;
-    var Email_Check=/^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
-    var Email=req.body.email;
-
-      req.body.id="abcd-efgh-ijkl-mnop";//-->testing id
-
-
-    if((!password)||password.length < 6||!password.match(/[a-z][0-9]+/i)||!Email_Check.test(Email))
-    {
-      res.status(401).send('"message": "Invalid Credentials"');
+  //email
+  //S2 Enhanced signup route #28
+    if (
+      !req.body.password ||
+      !req.body.email ||
+      req.body.password.length < 6 ||
+      req.body.email.match(/^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/) == false ||
+      req.body.password.match(/[a-z0-9]+/i) == false
+    ) {
+      res.status(401).json({message: "Invalid Credentials"})
+    } else {
+      res.json({id: "abcd-efgh-ijkl-mnop", "email": req.body.email});
     }
-    else{
-      res.status(200).send(
-    'id: ' + req.body.id + '\n' +
-    'email: ' + req.body.email);
-
-
-    }
-  } 
+    //------------------------------------------------------------
   else
   {
      res.status(403).send('Invalid information.');
