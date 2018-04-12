@@ -1,7 +1,9 @@
 // routes/hunts.js
 
 const express = require('express');
+const server = express();
 const router = express.Router();
+const ObjectId = require('mongodb').ObjectID;
 
 
 router.post('/', (req,res) => {
