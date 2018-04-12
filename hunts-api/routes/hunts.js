@@ -2,7 +2,7 @@
 
 const express = require('express');
 const router = express.Router();
-const getDb = require('../db/index.js');
+const getDb = require('../db');
 
 // TODO: remove when deployed to production, this is for debugging only !!
 router.get('/list', (req, res) => {
@@ -18,6 +18,24 @@ router.get('/list', (req, res) => {
   	});
   }).catch(e => res.status(500).json(e));
 });
+
+
+router.post('/', (req,res) => {
+  getDb().then(db => {
+
+    // db is available here just like in:
+    // http://mongodb.github.io/node-mongodb-native/3.0/quick-start/quick-start/#insert-a-document
+    const collection = db.collection('hunts');
+      // Insert some documents
+      collection.insertMany([
+        req.body
+      ], function(err, result) {
+      if (err) return res.status(500).json(err);
+
+      res.json(result);
+      });
+  }).catch(e => res.status(500).json(e));
+  });
 
 router.put('/:id', (req, res) => {
   if(!req.body.email || !req.params.id){
@@ -41,7 +59,6 @@ router.put('/:id', (req, res) => {
       console.log("200: added " + req.body.email + " to 'hunts' id:" + req.params.id);
       res.status(200).json({message: "Added user to hunt"});
     });
-
   }).catch(e => res.status(500).json(e));
 });
 
