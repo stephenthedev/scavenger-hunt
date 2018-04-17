@@ -17,7 +17,7 @@ app.use('/alive', require('./routes/alive'));
 
 // Add require routers
 const usersRoutes = require('./routes/users.js');
-app.use('/routes/users', usersRoutes);
+app.use('/users', usersRoutes);
 
 // app.use('/somepath', require(./routes/somepath.js));
 
