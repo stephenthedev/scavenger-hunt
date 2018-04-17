@@ -2,9 +2,14 @@
 
 // Sprint 1: A mock API for signing up (#14)
 
+// Sprint 3: Really signup a user (#42)
+
 //require express & create router
 const express = require('express');
 const router = express.Router();
+
+//require db
+const getDb = require('../db');
 
 // a test route
 router.get('/testRoute', (req,res) => res.send('Test successful.'));
@@ -20,9 +25,21 @@ router.post('/', (req, res) => {
   }
   else
   {
-    res.send('Account Confirmed. \n' +
-    'Username: ' + req.body.username + '\n' +
-    'Password: ' + req.body.password);
+    getDb().then(db => {
+      db.collection('users')
+      .insert({
+        user: req.body.username,
+        pwd: req.body.password
+      }, (err, result) => {
+        if (err) {
+          return res.status(500).json(err);
+        } else {
+          res.send('Account Confirmed. \n' +
+          'Username: ' + req.body.username + '\n' +
+          'Password: ' + req.body.password);
+        }
+      })
+    })
   }
 });
 
