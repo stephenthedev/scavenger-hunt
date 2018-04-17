@@ -2,6 +2,7 @@
 
 const express = require('express');
 const router = express.Router();
+const ObjectId = require('mongodb').ObjectId;
 const getDb = require('../db');
 
 // TODO: remove when deployed to production, this is for debugging only !!
@@ -18,7 +19,6 @@ router.get('/list', (req, res) => {
   	});
   }).catch(e => res.status(500).json(e));
 });
-
 
 router.post('/', (req,res) => {
   getDb().then(db => {
@@ -83,6 +83,14 @@ router.post('/join', (req, res) => {
       ]
     });
   }
+});
+
+router.get('/:id', (req,res) =>{
+  var hunt = db.collection('hunts')
+  .findOne({
+    "_id": ObjectId(req.params.id)
+  });
+  res.json(hunt);
 });
 
 module.exports = router;
