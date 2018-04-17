@@ -1,7 +1,6 @@
 // routes/hunts.js
 
 const express = require('express');
-const server = express();
 const router = express.Router();
 const ObjectId = require('mongodb').ObjectId;
 
@@ -35,7 +34,7 @@ router.post('/', (req,res) => {
   }
 });
 
-server.get('/:id', (req,res) =>{
+router.get('/:id', (req,res) =>{
   var hunt = db.collection('hunts')
   .findOne({
     "_id": ObjectId(req.params.id)
