@@ -20,6 +20,19 @@ router.get('/list', (req, res) => {
   }).catch(e => res.status(500).json(e));
 });
 
+router.get('/', (req,res) => {
+    getDb().then(db => {
+      db.collection('hunts')
+        .find({})
+        .toArray((err, results) =>{
+          if(err){
+            res.status(500).json(err);
+          } else {
+            res.json(results);
+          }
+        });
+  }).catch(e => res.status(500).json(e));
+});
 router.post('/', (req,res) => {
   getDb().then(db => {
 
@@ -35,7 +48,7 @@ router.post('/', (req,res) => {
       res.json(result);
       });
   }).catch(e => res.status(500).json(e));
-  });
+});
 
 router.put('/:id', (req, res) => {
   if(!req.body.email || !req.params.id){
