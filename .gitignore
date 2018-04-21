@@ -63,3 +63,9 @@ typings/
 
 # secrets
 secrets.json
+
+# Mac folder settings file
+.DS_Store
+
+# and windows too, because we're inclusive
+desktop.ini
