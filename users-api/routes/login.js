@@ -1,16 +1,19 @@
 //login.js
 const router = require('express').Router();
 const getDb = require('../db');
+const hash = require('./crypto');
+
 
 router.post('/', (req,res) => {
   getDb().then(db => {
     db.collection('users').findOne(
-      {username: req.body.username}, (err, user) => {
+      {email: req.body.email}, (err, user) => {
         if(err) {
           console.log('ERROR.')
           return res.status(500).json(err)
         }
-        if (user && user.password === req.body.password){
+        console.log(user, hash(req.body.password))
+        if (user && user.pwd === hash(req.body.password)){
           console.log('Login successful.')
           res.status(200).json({Message: "Login successful."});
         } else {
