@@ -1,6 +1,6 @@
 // launcher.js
 
-var pm2 = require('pm2');
+const pm2 = require('pm2');
 
 pm2.connect(function(err){
   if(err){
