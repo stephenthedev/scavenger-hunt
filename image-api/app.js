@@ -15,4 +15,6 @@ app.use('/version', require('./routes/version.js'));
 
 app.use('/hunts', require('./routes/hunts.js'));
 
+app.use('/process', require('./routes/process.js'));
+
 app.listen(process.env.PORT || 3000, () => console.log('App is listening...'));
