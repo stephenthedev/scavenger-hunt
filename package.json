@@ -1,0 +1,21 @@
+{
+  "name": "scavenger-hunt",
+  "version": "1.0.0",
+  "description": "A realtime geolocation based scavanger hunt web/mobile game",
+  "main": "launcher.js",
+  "dependencies": {},
+  "devDependencies": {},
+  "scripts": {
+    "lint": "eslint --fix **/*.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/CalebSarikey/scavenger-hunt.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/CalebSarikey/scavenger-hunt/issues"
+  },
+  "homepage": "https://github.com/CalebSarikey/scavenger-hunt#readme"
+}
