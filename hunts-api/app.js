@@ -18,3 +18,5 @@ app.use('/version', require('./routes/version.js'));
 app.use('/hunts', require('./routes/hunts.js'));
 
 app.listen(process.env.PORT || 3000, () => console.log('App is listening...'));
+
+module.exports=app;
