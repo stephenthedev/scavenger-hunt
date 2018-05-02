@@ -6,17 +6,19 @@ const router = express.Router();
 const ObjectId = require('mongodb').ObjectId;
 >>>>>>> d7d07ea5abda48d5a1e5ea722bd4542262fb39d3
 const getDb = require('../db');
+const logger = require('../../logger');
+
 
 // TODO: remove when deployed to production, this is for debugging only !!
 router.get('/list', (req, res) => {
-  console.log("Connecting to Mongo ...");
+  logger.info("Connecting to Mongo ...");
   getDb().then(db => {
-    console.log("Connected");
+    logger.info("Connected");
     db.collection('hunts').find(req.params.id).toArray((err, docs) => {
       if (err) {
         return res.status(500).json(err)
       }
-      console.log("200: returning 'hunts' collection to /list");
+      logger.info("200: returning 'hunts' collection to /list");
       res.status(200).json(docs);
     });
   }).catch(e => res.status(500).json(e));
@@ -106,9 +108,9 @@ router.put('/:id', (req, res) => {
     });
 
   }
-  console.log("Connecting to Mongo ...");
+  logger.info("Connecting to Mongo ...");
   getDb().then(db => {
-    console.log("Connected to Mongo");
+    logger.info("Connected to Mongo");
     db.collection('hunts')
       .findOneAndUpdate({
         id: req.params.id
@@ -122,7 +124,7 @@ router.put('/:id', (req, res) => {
         if (err) {
           return res.status(500).json(err)
         }
-        console.log("200: added " + req.body.email + " to 'hunts' id:" + req.params.id);
+        logger.info("200: added " + req.body.email + " to 'hunts' id:" + req.params.id);
         res.status(200).json({
           message: "Added user to hunt"
         });
