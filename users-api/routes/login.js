@@ -1,23 +1,26 @@
 //login.js
+const router = require('express').Router();
+const getDb = require('../db');
+const logger = require('../../logger');
 
-const express = require('express');
 
-const router = express.Router();
-
-router.put('/', (req,res) => {
-  if (req.body.password == '1234'){
-    res.status(200).json
-    ({
-        "id":"abcd-efgh-ijkl-mnop",
-        "email":"test@test.com"
+router.post('/', (req,res) => {
+  getDb().then(db => {
+    db.collection('users').findOne(
+      {username: req.body.username}, (err, user) => {
+        if(err) {
+          logger.error('ERROR.')
+          return res.status(500).json(err)
+        }
+        if (user && user.password === req.body.password){
+          logger.info('Login successful.')
+          res.status(200).json({Message: "Login successful."});
+        } else {
+          logger.info("Invalid credentials.");
+          res.status(403).json({Message: "Invalid credentials."});
+        }
+      });
     });
-  }
-  else{
-    res.status(403).json
-    ({
-        "message": "Invalid Credentials"
-    });
-  }
 });
 
 module.exports = router;
