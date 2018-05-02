@@ -5,6 +5,5 @@ module.exports =   function hash(str){
     const hash = crypto.createHmac('sha256', secret)
     .update(str)
     .digest('hex');
-
     return hash;
 }

@@ -12,7 +12,6 @@ router.post('/', (req,res) => {
           console.log('ERROR.')
           return res.status(500).json(err)
         }
-        console.log(user, hash(req.body.password))
         if (user && user.pwd === hash(req.body.password)){
           console.log('Login successful.')
           res.status(200).json({Message: "Login successful."});
