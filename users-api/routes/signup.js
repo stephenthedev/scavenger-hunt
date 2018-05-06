@@ -19,9 +19,14 @@ router.get('/testRoute', (req,res) => res.send('Test successful.'));
 // if something was entered for username and password,
 // confirm the signup and display the information
 router.post('/', (req, res) => {
-  if((!req.body.email) || (!req.body.password))
-  {
-    res.status(403).send('Invalid information.');
+  if (
+    !req.body.password ||
+    !req.body.email ||
+    req.body.password.length < 6 ||
+    req.body.email.match(/^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/) == false ||
+    req.body.password.match(/[a-z0-9]+/i) == false
+  ) {
+    res.status(401).json({message: "Invalid Credentials"})
   }
   else
   {
@@ -36,13 +41,13 @@ router.post('/', (req, res) => {
         if (err) {
           return res.status(500).json(err);
         } else {
-          res.send('Account Confirmed. \n' +
-          'email:' + req.body.email)
+          res.json({message: 'account created'});
         }
-      })
+      });
     })
   }
 });
+
 
 //export so other modules can access
 module.exports = router;

@@ -3,7 +3,10 @@
   "version": "1.0.0",
   "description": "A realtime geolocation based scavanger hunt web/mobile game",
   "main": "launcher.js",
-  "dependencies": {},
+  "dependencies": {
+    "morgan": "^1.9.0",
+    "winston": "^2.4.2"
+  },
   "devDependencies": {},
   "scripts": {
     "lint": "eslint --fix **/*.js"
