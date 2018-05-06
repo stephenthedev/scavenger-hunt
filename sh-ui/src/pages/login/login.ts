@@ -29,7 +29,9 @@ export class LoginPage {
   }
 
   login() {
-    this.navCtrl.setRoot(TabsPage);
+    this.api.login(this.email, this.password)
+      .then(() => this.navCtrl.setRoot(TabsPage))
+      .catch(console.error);
   }
 
   goToSignup() {

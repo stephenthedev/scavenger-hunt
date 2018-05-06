@@ -2,8 +2,10 @@ import {HttpClient} from '@angular/common/http';
 import {Injectable} from '@angular/core';
 import {LoadingController} from "ionic-angular";
 
-const HUNTS_API = 'http://ec2-18-232-158-4.compute-1.amazonaws.com:3000/';
-const USERS_API = 'http://ec2-18-232-158-4.compute-1.amazonaws.com:3001/';
+// const HUNTS_API = 'http://ec2-18-232-158-4.compute-1.amazonaws.com:3000';
+// const USERS_API = 'http://ec2-18-232-158-4.compute-1.amazonaws.com:3001';
+const HUNTS_API = 'http://localhost:3000';
+const USERS_API = 'http://localhost:3001';
 
 /*
   Generated class for the ApiServiceProvider provider.
@@ -57,12 +59,18 @@ export class ApiServiceProvider {
     return this.mockPromise();
   }
 
-  signup(data) {
-    return this.mockPromise();
+  signup(email, password) {
+    return this.http.post(`${USERS_API}/signup`, {
+      email,
+      password
+    }).toPromise();
   }
 
-  login(data) {
-    return this.mockPromise();
+  login(email, password) {
+    return this.http.post(`${USERS_API}/login`, {
+      email,
+      password
+    }).toPromise();
   }
 
   mockPromise(time = null, result = null) {
