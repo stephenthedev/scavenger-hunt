@@ -7,7 +7,7 @@
 //require express & create router
 const express = require('express');
 const router = express.Router();
-
+const hash = require('./crypto');
 //require db
 const getDb = require('../db');
 
@@ -19,7 +19,6 @@ router.get('/testRoute', (req,res) => res.send('Test successful.'));
 // if something was entered for username and password,
 // confirm the signup and display the information
 router.post('/', (req, res) => {
-
   if (
     !req.body.password ||
     !req.body.email ||
@@ -31,11 +30,13 @@ router.post('/', (req, res) => {
   }
   else
   {
+    const pass = hash(req.body.password);
+
     getDb().then(db => {
       db.collection('users')
       .insert({
-        user: req.body.email,
-        pwd: req.body.password
+        email: req.body.email,
+        pwd: pass
       }, (err, result) => {
         if (err) {
           return res.status(500).json(err);
