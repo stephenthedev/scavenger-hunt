@@ -4,6 +4,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const morgan = require('morgan');
+const cors = require('cors');
 const logger = require('../logger');
 
 //create app
@@ -13,6 +14,7 @@ const app = express();
 //populate req.body with whatever users send
 
 app.use(bodyParser.json());
+app.use(cors());
 
 app.use(morgan('dev', {
     skip: function (req, res) {

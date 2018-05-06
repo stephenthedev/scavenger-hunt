@@ -40,10 +40,9 @@ router.post('/', (req, res) => {
         if (err) {
           return res.status(500).json(err);
         } else {
-          res.send('Account Confirmed. \n' +
-          'Email': req.body.email + '\n');
+          res.json({message: 'account created'});
         }
-      })
+      });
     })
   }
 });
