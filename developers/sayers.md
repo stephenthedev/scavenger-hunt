@@ -1,1 +1,1 @@
-# Hello from sayers saye4119@fredonia.edu
+# Hello from Sayers saye4119@fredonia.edu

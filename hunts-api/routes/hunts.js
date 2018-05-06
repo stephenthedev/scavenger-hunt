@@ -1,7 +1,10 @@
 // routes/hunts.js
 const express = require('express');
 const router = express.Router();
+<<<<<<< HEAD
+=======
 const ObjectId = require('mongodb').ObjectId;
+>>>>>>> d7d07ea5abda48d5a1e5ea722bd4542262fb39d3
 const getDb = require('../db');
 const logger = require('../../logger');
 
@@ -21,6 +24,21 @@ router.get('/list', (req, res) => {
   }).catch(e => res.status(500).json(e));
 });
 
+<<<<<<< HEAD
+router.get('/', (req,res) => {
+    getDb().then(db => {
+  db.collection('hunts')
+  .find({})
+  .toArray((err, results) =>{
+    if(err){
+      res.status(500).json(err);
+    }else{
+      res.json(results);
+    }
+  });
+  }).catch(e => res.status(500).json(e));
+});
+=======
 router.get('/', (req, res) => {
   getDb().then(db => {
     db.collection('hunts')
@@ -66,6 +84,7 @@ router.post('/', (req, res) => {
       "message": "Missing " + missing.join(',')
     });
   }
+>>>>>>> d7d07ea5abda48d5a1e5ea722bd4542262fb39d3
 
   getDb().then(db => {
     // db is available here just like in:
