@@ -35,8 +35,6 @@ app.use('/users', usersRoutes);
 
 // app.use('/somepath', require(./routes/somepath.js));
 
-// app.use('/somepath', require(./routes/somepath.js));
-
 const loginRoutes = require('./routes/login.js');
 app.use('/login', loginRoutes);
 

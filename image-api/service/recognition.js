@@ -10,4 +10,4 @@ client.analyze(fs.readFileSync('./test.png').toString('base64'))
   .catch(e => console.error('ERROR', e));
 
 
-module.exports = router;
+module.exports = rekognition;
