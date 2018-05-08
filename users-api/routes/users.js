@@ -5,14 +5,20 @@ const packagejson = require('../package.json');
 // respond to get request with users list
 router.get('/', (req, res) => {
   res.json({
-    "userList": [
-      {"id": "1", "name": "Ross"},
-      {"id": "2", "name": "Chandler"},
-      {"id": "3", "name": "Monica"},
-      {"id": "4", "name": "Rachel"},
-      {"id": "5", "name": "Phoebe"},
-      {"id": "6", "name": "Joey"},
-    ]});
+    public function update($id, Request $request)
+{
+    $user = User::findOrFail($id);
+    $newPassword = $request->get('password');
+
+    if(empty($newPassword)){
+        $user->update($request->except('password'));
+    }else{
+        $user->update($request->all());
+    }
+    return redirect('users');
+}
+
 });
 
 module.exports = router;
+
