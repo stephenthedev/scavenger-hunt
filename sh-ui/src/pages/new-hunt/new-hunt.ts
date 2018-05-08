@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
 import {Alert, AlertController, IonicPage, LoadingController, NavController, NavParams} from 'ionic-angular';
 import {ApiServiceProvider} from "../../providers/api-service/api-service";
 import {TabsPage} from "../tabs/tabs";
@@ -60,13 +60,13 @@ export class NewHuntPage {
 
   createHunt() {
 
-    if(!this.name || this.items.length < 1) {
+    if (!this.name || this.items.length < 1) {
       return this.alertCtrl.create({title: 'Need a name and items'}).present();
     }
 
-    this.api.createHunt({
-      name: this.name,
-      items: this.items
-    }).then(() => this.navCtrl.setRoot(TabsPage));
+    this.api.createHunt(
+      this.name,
+      this.items
+    ).then(() => this.navCtrl.setRoot(TabsPage));
   }
 }

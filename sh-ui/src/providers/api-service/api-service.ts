@@ -21,42 +21,38 @@ export class ApiServiceProvider {
     console.log('Hello ApiServiceProvider Provider');
   }
 
-  createHunt(data) {
+  createHunt(name, items) {
     let loading = this.loadingCtrl.create({
       content: 'Creating hunt'
     });
     return loading.present().then(() => {
-      return this.mockPromise(1000)
+      return this.http.post(`${HUNTS_API}/hunts`, {
+        name,
+        items: items.map(i => {
+          return {label: i, usersWhoHaveCompletedIt: ['noop@noop.com']}
+        }),
+        lat: 1,
+        long: 1,
+        radius: 1
+      }).toPromise();
     }).then(() => loading.dismiss());
   }
 
   getHunts() {
-    return this.mockPromise(null, [{name: 'test', id: '1234'}, {
-      name: 'test',
-      id: '12345',
-      currentUsers: ['noop@noop.com']
-    }]);
+    return this.http.get(`${HUNTS_API}/hunts`).toPromise();
   }
 
   getHunt(id: string) {
-    return this.mockPromise(null,
-      {
-        name: 'Test hunt',
-        items: [
-          {
-            label: 'Boat',
-            usersWhoHaveCompletedIt: []
-          },
-          {
-            label: 'Car',
-            usersWhoHaveCompletedIt: ['noop@noop.com']
-          }
-        ]
-      });
+    return this.http.get(`${HUNTS_API}/hunts/${id}`).toPromise();
   }
 
-  completeItem(image, item) {
-    return this.mockPromise();
+  completeItem(id, email, label, image) {
+    return this.http.post(`${HUNTS_API}/complete`, {
+      id,
+      email,
+      label,
+      image
+    });
   }
 
   signup(email, password) {
@@ -70,7 +66,7 @@ export class ApiServiceProvider {
     return this.http.post(`${USERS_API}/login`, {
       email,
       password
-    }).toPromise();
+    }).toPromise().then(() => this.userEmail = email);
   }
 
   mockPromise(time = null, result = null) {

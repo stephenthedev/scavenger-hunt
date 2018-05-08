@@ -7,7 +7,7 @@ const logger = require('../logger');
 
 const app = express();
 
-app.use(bodyParser.json());
+app.use(bodyParser.json({limit: '50mb'}));
 app.use(cors());
 
 // TODO Add require routers here
@@ -31,5 +31,7 @@ app.use('/alive', require('./routes/alive'));
 app.use('/version', require('./routes/version.js'));
 
 app.use('/hunts', require('./routes/hunts.js'));
+
+app.use('/complete', require('./routes/complete'));
 
 app.listen(process.env.PORT || 3000, () => logger.info('App is listening...'));

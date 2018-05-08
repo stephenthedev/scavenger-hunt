@@ -29,7 +29,7 @@ export class HomePage {
   }
 
   selectHunt(hunt) {
-    this.navCtrl.push(HuntPage, {id: hunt.id});
+    this.navCtrl.push(HuntPage, {id: hunt._id});
   }
 
   inProgress(hunt) {

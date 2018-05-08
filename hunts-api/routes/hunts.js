@@ -74,7 +74,7 @@ router.post('/', (req, res) => {
     // Insert some documents
     collection.insertMany([
       req.body
-    ], function(err, result) {
+    ], function (err, result) {
       if (err) return res.status(500).json(err);
 
       res.json(result);
@@ -140,11 +140,18 @@ router.post('/join', (req, res) => {
 });
 
 router.get('/:id', (req, res) => {
-  var hunt = db.collection('hunts')
-    .findOne({
-      "_id": ObjectId(req.params.id)
-    });
-  res.json(hunt);
+  getDb().then(db => {
+    db.collection('hunts')
+      .findOne({
+        "_id": ObjectId(req.params.id)
+      }, (err, result) => {
+        if (err) {
+          return res.status(500).json(err);
+        } else {
+          res.json(result);
+        }
+      });
+  }).catch(e => res.status(500).json(e));
 });
 
 module.exports = router;

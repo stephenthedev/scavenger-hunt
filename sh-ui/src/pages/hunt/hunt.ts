@@ -17,7 +17,7 @@ import {Camera, CameraOptions} from '@ionic-native/camera';
 })
 export class HuntPage {
 
-  hunt = {};
+  hunt:any = {};
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private loadingCtrl: LoadingController, private api: ApiServiceProvider, private camera: Camera, private alertCtrl: AlertController) {
 
@@ -47,10 +47,19 @@ export class HuntPage {
     };
 
     this.camera.getPicture(options).then((imageData) => {
-      // imageData is either a base64 encoded string or a file URI
-      // If it's base64:
-      let base64Image = 'data:image/jpeg;base64,' + imageData;
-    }, (err) => {
+      return this.api.completeItem(
+        this.hunt._id,
+        this.api.userEmail,
+        item.label,
+        imageData
+      );
+    }).then((data:any) => {
+      if (data.message == 'MATCHED') {
+        item.usersWhoHaveCompletedIt.push(this.api.userEmail);
+      } else {
+        this.alertCtrl.create({message:'Not a match'}).present();
+      }
+    }).catch((err) => {
       // Handle error
       this.alertCtrl.create({
         message: err
