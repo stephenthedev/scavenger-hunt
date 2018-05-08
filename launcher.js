@@ -9,7 +9,7 @@ pm2.connect(function(err){
   }
 
   pm2.start({
-    script: './hunts-api/app.js', './users-api/app.js',
+    script: ['./hunts-api/app.js', './users-api/app.js'],
     exec_mode: 'cluster',
     instances: 1,
     max_memory_restart: '100M'

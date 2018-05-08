@@ -1,5 +1,7 @@
 const MongoClient = require('mongodb').MongoClient;
 const secrets = require(__dirname + '/../../secrets.json');
+const logger = require('../../logger');
+
 
 // Connection URL
 const url = secrets.url;
@@ -9,6 +11,6 @@ module.exports = function () {
   return MongoClient.connect(url)
     .then(client => client.db('scavenger-hunt'))
     .catch(e => {
-      console.error('ERROR CONNECTING TO MONGO', e);
+      logger.error('ERROR CONNECTING TO MONGO', e);
     });
 };

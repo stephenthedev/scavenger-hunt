@@ -3,6 +3,9 @@
 //pull in dependencies
 const express = require('express');
 const bodyParser = require('body-parser');
+const morgan = require('morgan');
+const cors = require('cors');
+const logger = require('../logger');
 
 //create app
 const app = express();
@@ -11,6 +14,19 @@ const app = express();
 //populate req.body with whatever users send
 
 app.use(bodyParser.json());
+app.use(cors());
+
+app.use(morgan('dev', {
+    skip: function (req, res) {
+        return res.statusCode < 400
+    }, stream: process.stderr
+}));
+
+app.use(morgan('dev', {
+    skip: function (req, res) {
+        return res.statusCode >= 400
+    }, stream: process.stdout
+}));
 
 // alive route
 app.use('/alive', require('./routes/alive'));
@@ -29,4 +45,4 @@ app.use('/signup', require('./routes/signup.js'));
 
 
 // listen on port 3000
-app.listen(process.env.PORT || 3000, () => console.log('App is listening...'));
+app.listen(process.env.PORT || 3000, () => logger.info('App is listening...'));
