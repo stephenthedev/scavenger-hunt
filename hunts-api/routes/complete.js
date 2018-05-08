@@ -22,7 +22,7 @@ router.post('/', (req,res) => {
         "message": "Missing image"
       });
     }
-    
+
 });
 
 module.exports = router;
