@@ -18,6 +18,7 @@ import {Camera, CameraOptions} from '@ionic-native/camera';
 export class HuntPage {
 
   hunt:any = {};
+  isInProgress = false;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private loadingCtrl: LoadingController, private api: ApiServiceProvider, private camera: Camera, private alertCtrl: AlertController) {
 
@@ -30,6 +31,7 @@ export class HuntPage {
     this.api.getHunt(this.navParams.get('id'))
       .then(hunt => {
         this.hunt = hunt;
+        this.isInProgress = this.inProgress();
         loading.dismiss();
       });
   }
@@ -40,7 +42,7 @@ export class HuntPage {
 
   completeItem(item) {
     const options: CameraOptions = {
-      quality: 100,
+      quality: 80,
       destinationType: this.camera.DestinationType.DATA_URL,
       encodingType: this.camera.EncodingType.JPEG,
       mediaType: this.camera.MediaType.PICTURE
@@ -54,9 +56,12 @@ export class HuntPage {
         imageData
       );
     }).then((data:any) => {
+      console.log('response', data);
       if (data.message == 'MATCHED') {
         item.usersWhoHaveCompletedIt.push(this.api.userEmail);
+        this.isInProgress = this.inProgress();
       } else {
+        console.log(JSON.stringify(data));
         this.alertCtrl.create({message:'Not a match'}).present();
       }
     }).catch((err) => {
@@ -66,6 +71,16 @@ export class HuntPage {
       }).present();
       console.error(err);
     });
+  }
+
+  inProgress() {
+    if(!this.hunt || !this.hunt.items) {
+      return false;
+    } else if(this.hunt.items.find(i => !this.isDone(i))) {
+      return true;
+    } else {
+      return false;
+    }
   }
 
 

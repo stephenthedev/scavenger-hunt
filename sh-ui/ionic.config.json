@@ -1,6 +1,6 @@
 {
   "name": "sh-ui",
-  "app_id": "",
+  "app_id": "8a7e3ad9",
   "type": "ionic-angular",
   "integrations": {
     "cordova": {}

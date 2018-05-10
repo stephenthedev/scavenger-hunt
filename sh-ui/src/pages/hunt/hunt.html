@@ -15,6 +15,9 @@
 
 <ion-content>
   <ion-list *ngIf="hunt.items">
+    <ion-item text-center *ngIf="!isInProgress">
+      <ion-icon style="color:green" name="checkmark"></ion-icon> Congratulations!
+    </ion-item>
     <button ion-item *ngFor="let item of hunt.items" [disabled]="isDone(item)" (click)="completeItem(item)">
       {{ item.label }}
       <ion-icon name="play" item-end *ngIf="!isDone(item)"></ion-icon>
